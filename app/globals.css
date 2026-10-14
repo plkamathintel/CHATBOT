@@ -1,0 +1,46 @@
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --primary-light: #eef3ff;
+    --bg: #f4f6f9;
+    --panel-bg: #ffffff;
+    --border: #e5e7eb;
+    --text: #111827;
+    --muted: #6b7280;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    background:
+        radial-gradient(circle at 20% 20%, #eef2ff 0%, transparent 45%),
+        var(--bg);
+    overflow: hidden;
+}
+
+.page-backdrop {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--muted);
+    padding: 40px;
+}
+
+.page-backdrop h1 {
+    font-size: 28px;
+    color: #1f2937;
+    margin-bottom: 10px;
+}
