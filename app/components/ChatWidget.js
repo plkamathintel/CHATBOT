@@ -22,6 +22,7 @@ export default function ChatWidget() {
   const [messages, setMessages] = useState(INITIAL_MESSAGES);
   const [input, setInput] = useState('');
   const [typing, setTyping] = useState(false);
+  const historyRef = useRef([]);
 
   const chatBodyRef = useRef(null);
   const textareaRef = useRef(null);
@@ -59,21 +60,38 @@ export default function ChatWidget() {
     setInput('');
     setTyping(true);
 
-    setTimeout(() => {
-      setTyping(false);
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: `b-${Date.now()}`,
-          sender: 'bot',
-          text: 'This is a demo response. Connect your backend API here to get real forecasting insights.',
-          time: timeNow(),
-        },
-      ]);
-    }, 900);
+    fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: text, history: historyRef.current }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setTyping(false);
+        if (data.error) {
+          setMessages((prev) => [
+            ...prev,
+            { id: `b-${Date.now()}`, sender: 'bot', text: `Error: ${data.error}`, time: timeNow() },
+          ]);
+          return;
+        }
+        historyRef.current = data.history || historyRef.current;
+        setMessages((prev) => [
+          ...prev,
+          { id: `b-${Date.now()}`, sender: 'bot', text: data.reply, time: timeNow() },
+        ]);
+      })
+      .catch((error) => {
+        setTyping(false);
+        setMessages((prev) => [
+          ...prev,
+          { id: `b-${Date.now()}`, sender: 'bot', text: `Error: ${error.message}`, time: timeNow() },
+        ]);
+      });
   };
 
   const clearChat = () => {
+    historyRef.current = [];
     setMessages([
       { id: `b-${Date.now()}`, sender: 'bot', text: 'Chat cleared. How can I help you today?', time: timeNow() },
     ]);
