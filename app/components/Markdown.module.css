@@ -1,0 +1,101 @@
+/* Markdown rendering inside chat bubbles - bold result values, pipe tables,
+   lists and headings, styled to feel like part of the ForecastIQ brand. */
+
+.markdown {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.paragraph {
+    margin: 0;
+}
+
+.bold {
+    color: var(--primary-dark, #1d4ed8);
+    background: rgba(37, 99, 235, 0.1);
+    padding: 1px 5px;
+    border-radius: 5px;
+    font-weight: 700;
+}
+
+.user .bold,
+.bubble.user .bold,
+.userVariant .bold {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.22);
+}
+
+.userVariant .inlineCode {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.22);
+}
+
+.inlineCode {
+    background: #eef2ff;
+    color: #4338ca;
+    padding: 1px 6px;
+    border-radius: 5px;
+    font-size: 12.5px;
+    font-family: "SFMono-Regular", Consolas, Menlo, monospace;
+}
+
+.heading {
+    margin: 2px 0 0;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.list {
+    margin: 0;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.list li {
+    line-height: 1.5;
+}
+
+/* Table: wrapped so it can scroll horizontally on narrow panels instead of
+   overflowing/breaking the chat bubble layout. */
+.tableWrap {
+    overflow-x: auto;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 12.5px;
+    min-width: 320px;
+}
+
+.table thead th {
+    background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+    color: #3730a3;
+    text-align: left;
+    padding: 8px 10px;
+    font-weight: 700;
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+}
+
+.table tbody td {
+    padding: 8px 10px;
+    border-top: 1px solid #f1f5f9;
+    color: #374151;
+    white-space: nowrap;
+}
+
+.table tbody tr:nth-child(even) {
+    background: #f9fafb;
+}
+
+.table tbody tr:hover {
+    background: #eef2ff;
+}

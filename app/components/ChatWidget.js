@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import styles from './ChatWidget.module.css';
+import Markdown from './Markdown';
 
 const INITIAL_MESSAGES = [
   {
@@ -153,7 +154,9 @@ export default function ChatWidget() {
                 <i className={`fas ${m.sender === 'bot' ? 'fa-robot' : 'fa-user'}`}></i>
               </div>
               <div className={styles.bubbleWrap}>
-                <div className={styles.bubble}>{m.text}</div>
+                <div className={styles.bubble}>
+                  <Markdown text={m.text} variant={m.sender === 'user' ? 'user' : 'bot'} />
+                </div>
                 <div className={styles.timestamp}>{m.time}</div>
               </div>
             </div>
